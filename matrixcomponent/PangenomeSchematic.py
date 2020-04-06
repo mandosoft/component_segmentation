@@ -118,3 +118,13 @@ class PangenomeSchematic:
         with index_file.open('w') as out:
             out.write(json.dumps(file_contents, indent=4))
             print("Saved file2bin mapping to", index_file)
+
+        try: master_index_file
+        except NameError: master_index_file = folder.parent.joinpath(f'bin2file.json')
+        master_contents = {'json_version': JSON_VERSION,
+                           'pangenome_length': self.pangenome_length,
+                           'zoom_levels': {f'{self.bin_width}': file_contents}}
+
+        with master_index_file.open('w') as f:
+            f.write(json.dumps(master_contents, indent=5))
+            print("Wrote to master index file at", master_index_file)
