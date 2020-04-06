@@ -64,6 +64,7 @@ class PangenomeSchematic:
                 schematic.fasta_filename = self.fasta_filename(i)
                 partitions.append(schematic)
                 bin2file_mapping.append({"file": schematic.filename,
+                                         "fasta": schematic.fasta_filename,
                                          "first_bin": schematic.first_bin,
                                          "last_bin": schematic.last_bin})
         return partitions, bin2file_mapping
