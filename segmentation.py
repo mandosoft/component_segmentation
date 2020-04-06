@@ -260,7 +260,7 @@ def write_fasta_files(odgi_fasta, output_folder: Path, schematic: PangenomeSchem
         header = f"first_bin: {part.first_bin} " + f"last_bin: {part.last_bin}"
         chunk = [Contig(header, fasta.seq[fa_first:fa_last])]
         c = PurePath(output_folder).joinpath(part.fasta_filename)
-        write_contigs_to_file(c, chunk)
+        write_contigs_to_file(c, chunk), print("Saved results to", c)
 
 
 def get_arguments():
@@ -306,7 +306,9 @@ def get_arguments():
     args = parser.parse_args()
     if not args.output_folder:
         # directory with the same name as the json
-        args.output_folder = osPath(args.json_file).parent.joinpath(osPath(args.json_file).stem)
+        parent_dir = args.json_file.split(".w1")[0]
+        args.output_folder = osPath(parent_dir).joinpath(osPath(args.json_file).stem)
+
     else:
         args.output_folder = osPath(args.output_folder)
     os.makedirs(args.output_folder, exist_ok=True)
@@ -329,6 +331,7 @@ def main():
 
 if __name__ == '__main__':
     main()
+
 #--json-file=data/run1.B1phi1.i1.seqwish.w100.json --cells-per-file=5000
 # --fasta=data/run1.B1phi1.i1.seqwish.fasta
 
