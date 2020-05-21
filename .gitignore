@@ -1,5 +1,6 @@
 .idea
-data/
+/data/*
+data/*
 matrixcomponent/data/
 *.log
 
